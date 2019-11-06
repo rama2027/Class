@@ -6,4 +6,4 @@ export AWS_SECRET_ACCESS_KEY=$(awk '/SecretAccessKey/ {print $2}' ram.txt | tr -
 export AWS_SESSION_TOKEN=$(awk '/SessionToken/ {print $2}' ram.txt | tr -d '",{}')
 export AWS_ACCESS_KEY_ID=$(awk '/AccessKeyId/ {print $2}' ram.txt | tr -d '",{}')
 printenv
-aws describe-instances --instance-ids $DESCRIBE_INSTANCE
+aws ec2 describe-instances --instance-ids $DESCRIBE_INSTANCE
