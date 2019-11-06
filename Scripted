@@ -2,10 +2,10 @@ node('master')
 {
 stage('Credtials')
 {
-sh 'sh $WORKSPACE@scrpit/assumerole.sh'
+sh 'sh $WORKSPACE@script/assumerole.sh'
 }
 stage(Describe)
 {
-sh 'sh $WORKSPACE@scrpit/describe.sh'
+sh 'sh $WORKSPACE@script/describe.sh'
 }
 }
