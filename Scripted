@@ -2,10 +2,10 @@ node('master')
 {
 stage('Credtials')
 {
-sh 'sh assumerole.sh'
+sh 'sh $WORSPACE/assumerole.sh'
 }
 stage(Describe)
 {
-sh 'sh describe.sh'
+sh 'sh $WORSPACE/describe.sh'
 }
 }
