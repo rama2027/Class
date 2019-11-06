@@ -1,0 +1,11 @@
+node('masteer')
+{
+stage('Credtials')
+{
+sh 'sh assumerole.sh'
+}
+stage(Describe)
+{
+sh 'sh describe.sh'
+}
+}
