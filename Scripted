@@ -1,4 +1,4 @@
-node('masteer')
+node('master')
 {
 stage('Credtials')
 {
