@@ -1,0 +1,15 @@
+node('master')
+{
+stage('Credtials')
+{
+sh 'sh $WORKSPACE/assumerole.sh'
+}
+stage('Describe')
+{
+sh 'sh $WORKSPACE/describe.sh'
+}
+stage('clean')
+{
+cleanWs()
+}
+}
