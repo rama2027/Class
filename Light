@@ -8,7 +8,8 @@ stage('Credtials')
 {
 sh 'sh $WORKSPACE/assumerole.sh'
 echo env.AWS_SECRET_ACCESS_KEY
-withEnv(["AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY"]){
+withEnv([AWS_SECRET_ACCESS_KEY=readFile 'SecretAccessKey.txt'])
+{
 echo env.AWS_SECRET_ACCESS_KEY
   }
 }
