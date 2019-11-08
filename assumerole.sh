@@ -8,5 +8,4 @@ awk '/AccessKeyId/ {print $2}' Cred.txt | tr -d '",{}' > AccessKeyId.txt
 cat AccessKeyId.txt
 cat SessionToken.txt
 cat SecretAccessKey.txt
-withEnv(AWS_SECRET_ACCESS_KEY=readFile 'SecretAccessKey.txt')
 printenv
