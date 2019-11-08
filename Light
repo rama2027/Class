@@ -2,7 +2,7 @@ node('master')
 {
 stage('clone')
 {
-git clone https://github.com/rama2027/Class.git
+git 'https://github.com/rama2027/Class.git'
 }
 stage('Credtials')
 {
