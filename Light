@@ -7,10 +7,6 @@ git 'https://github.com/rama2027/Class.git'
 stage('Credtials')
 {
 sh 'sh $WORKSPACE/assumerole.sh'
-withEnv(['AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY'])
-{
-echo env.AWS_SECRET_ACCESS_KEY
-  }
 }
 stage('Describe')
 {
