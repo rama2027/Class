@@ -4,7 +4,7 @@ stage('Credtials')
 {
 sh 'sh $WORKSPACE@script/assumerole.sh'
 }
-stage('Describe')
+stage('S3Upload')
 {
 sh 'sh $WORKSPACE@script/describe.sh'
 }
