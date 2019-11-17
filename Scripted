@@ -6,10 +6,10 @@ sh 'sh $WORKSPACE@script/assumerole.sh'
 }
 stage('S3Upload')
 {
-sh 'sh $WORKSPACE@script/describe.sh'
+sh 'sh $WORKSPACE@script/S3upload.sh'
 }
-stage('clean')
+stage('CFT')
 {
-cleanWs()
+sh 'sh $WORKSPACE@script/CTF.sh'
 }
 }
