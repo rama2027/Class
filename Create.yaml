@@ -1,0 +1,66 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: Basic Ec2 Instance
+Parameters:
+ InstanceType:
+  Description: InstanceType
+  Type: String
+  Default: t2.small
+  AllowedValues:
+    - t2.micro
+    - t2.small
+ AvalibilityZone:
+  Description: AvalibilityZone
+  Type: String
+  Default: eu-west-1a
+  AllowedValues:
+    - eu-west-1a
+    - eu-west-2a
+ KeyName:
+  Description: KeyName
+  Type: String
+  Default: test
+  AllowedValues:
+  - test
+  Description: AvalibilityZone
+  Type: String
+  Default: love
+  AllowedValues:
+    - test
+    - love
+Mappings:
+ AMIID:
+  eu-west-1:
+   D: ami-0ce71448843cb18a1
+  eu-west-2:
+   D: ami-04de2b60dd25fbb2e
+ Region:
+  eu-west-1:
+   D: eu-west-1a
+  eu-west-2:
+   D: eu-west-2a
+  
+Resources:
+  Instance:
+   Type: AWS::EC2::Instance
+   Properties:
+    ImageId: !FindInMap
+     - AMIID
+     - !Ref 'AWS::Region'
+     - D
+     
+    InstanceType: !Ref InstanceType
+    AvailabilityZone: !FindInMap
+     - Region
+     - !Ref 'AWS::Region'
+     - D
+    
+    Tags:
+     - 
+      Key: "Name"
+      Value: "Test"
+     -
+      Key: "Value"
+      Value: "Test"
+    KeyName: !Ref KeyName
+    SecurityGroups:
+     - default
