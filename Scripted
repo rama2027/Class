@@ -12,8 +12,8 @@ stage('S3Upload')
 {
 sh 'sh $WORKSPACE/describe.sh'
 }
-stage('CFT')
+/*stage('CFT')
 {
 sh 'sh $WORKSPACE/CTF.sh'
-}
+}*/
 }
