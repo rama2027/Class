@@ -1,6 +1,6 @@
  #!/bin/sh
  
-yum install jq -y
+sudo yum install jq -y
 aws sts assume-role --role-arn $IAM_ROLE --role-session-name DescribeInstance --output json > Cred.json
 jq -r '.["Credentials"]' Cred.json > Cred.txt
 cat Cred.txt
