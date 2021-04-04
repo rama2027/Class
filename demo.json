@@ -1,0 +1,87 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "",
+    "Metadata": {
+
+    },
+    "Parameters": {
+
+    },
+    "Mappings": {
+
+    },
+    "Conditions": {
+
+    },
+    "Resources": {
+      "1vpc": {
+        "Type": "AWS::EC2::VPC",
+        "Properties": {
+          "CidrBlock": "192.168.0.0/16",
+          "Tags": [{ "Key": "1", "Value":  "1" }]
+        }
+      },
+      "subnetName": {
+        "Type": "AWS::EC2::Subnet",
+        "Properties": {
+          "AvailabilityZone": "eu-west-1a",
+          "VpcId": { "Ref": "1vpc" },
+          "CidrBlock": "192.168.0.0/19",
+          "Tags": ["{ "Key": "2", "Value":  "2" }"]
+        }
+      },
+      "secGroupName" : {
+        "Type" : "AWS::EC2::SecurityGroup",
+        "Properties" : {
+          "GroupDescription" : "test",
+          "SecurityGroupIngress": [
+              {
+                  "IpProtocol": "tcp",
+                  "FromPort": 80,
+                  "ToPort": 80,
+                  "CidrIp": "0.0.0.0/0"
+              },
+              {
+                  "IpProtocol": "tcp",
+                  "FromPort": 3389,
+                  "ToPort": 3389,
+                  "CidrIp": "0.0.0.0/0"
+              }
+          ],
+          "VpcId" : { "Ref": "1vpc" },
+          "Tags" :  [ { "Key": "1", "Value":  "1" } ]
+        }
+      },
+      "instance": {
+          "Type": "AWS::EC2::Instance",
+          "Properties": {
+              "KeyName": windows,
+              "ImageId": "ami-05f34bb57ea1a77ad",
+              "InstanceType": "t2.micro",
+              "SubnetId" : { "Ref": "subnetName" },
+              "SecurityGroupIds" : [{ "Ref": "secGroupName" }],
+              "Tags": [
+                  {
+                      "Key": "-",
+                      "Value": "-"
+                  }
+              ],
+              "UserData": {
+                  "Fn::Base64": {
+                      "Fn::Join": [
+                          "",
+                          [
+                              "#!/bin/bash -ex",
+                              "-"
+                          ]
+                      ]
+                  }
+              }
+      }
+              }
+
+    },
+    "Outputs": {
+
+    }
+}
