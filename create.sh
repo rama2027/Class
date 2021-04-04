@@ -5,12 +5,8 @@ source $WORKSPACE/var.sh
 export stackname=my-new-stack
 checkstack=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackName' --output text)
 echo $checkstack
-if [[ $checkstack -eq $stackname ]]
+if [[ $checkstack -ne $stackname ]]
 then
-echo "stack $stackname exists hence deleting it"
-aws cloudformation delete-stack --stack-name $stackname --region $Region
-aws cloudformation wait stack-delete-complete --stack-name $stackname --region $Region
-else
 echo "stack $stackname not exists hence creating it"
 aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/cft.json --stack-name $stackname --region $Region
 if [[ $? -eq 0 ]]; then
@@ -24,6 +20,10 @@ if [[ $? -eq 0 ]]; then
         CREATE_STACK_STATUS=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackStatus' --output text)
     done
 fi
+else
+echo "stack $stackname exists hence deleting it"
+aws cloudformation delete-stack --stack-name $stackname --region $Region
+aws cloudformation wait stack-delete-complete --stack-name $stackname --region $Region
 fi
 #aws cloudformation wait stack-create-complete --stack-name $stackname --region $Region
 
