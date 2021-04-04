@@ -21,7 +21,11 @@ then
         CREATE_STACK_STATUS=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackStatus' --output text)
     done
 fi
-else
+elif
+echo "checking change set"
+aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/cft.json --change-set-type update
+aws cloudformation list-change-sets --stack-name $stackname --query 'Stacks[0].StackName', 'Stacks[1].ChangeSetId' --output text
+aws cloudformation ex
 echo "stack $stackname exists hence deleting it"
 aws cloudformation delete-stack --stack-name $stackname --region $Region
 aws cloudformation wait stack-delete-complete --stack-name $stackname --region $Region
