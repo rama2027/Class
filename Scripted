@@ -15,4 +15,6 @@ sh 'sh $WORKSPACE/S3upload.sh'
 stage('CFT Validation')
 {
 sh 'sh $WORKSPACE/cftvalidation.sh'
+}
+}
 
