@@ -9,6 +9,7 @@ if [[ $checkstack -eq $stackname ]]
 then
 echo "stack $stackname exists hence deleting it"
 aws cloudformation delete-stack --stack-name $stackname --region $Region
+aws cloudformation wait stack-delete-complete --stack-name $stackname --region $Region
 else
 echo "stack $stackname not exists hence creating it"
 aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/cft.json --stack-name $stackname --region $Region
