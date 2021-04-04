@@ -16,5 +16,9 @@ stage('CFT Validation')
 {
 sh 'sh $WORKSPACE/cftvalidation.sh'
 }
+stage('CFT Validation')
+{
+sh 'sh $WORKSPACE/create.sh'
+}
 }
 
