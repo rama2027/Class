@@ -8,8 +8,11 @@ stage('Credtials')
 {
 sh 'sh $WORKSPACE/assumerole.sh'
 }
-stage('describe')
+stage('S3upload')
 {
-sh 'sh $WORKSPACE/describe.sh'
+sh 'sh $WORKSPACE/S3upload.sh'
 }
-}
+stage('CFT Validation')
+{
+sh 'sh $WORKSPACE/cftvalidation.sh'
+
