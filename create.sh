@@ -4,6 +4,7 @@ source $WORKSPACE/var.sh
 
 export stackname=my-new-stack
 checkstack=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackName' --output text)
+echo $checkstack
 if [ checkstack == $stackname ]
 then
 echo "stack $stackname exists hence deleting it"
