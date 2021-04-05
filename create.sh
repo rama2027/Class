@@ -32,6 +32,7 @@ echo "no change set is there hence deleting the stack"
 aws cloudformation delete-stack --stack-name $stackname --region $Region
 aws cloudformation wait stack-delete-complete --stack-name $stackname --region $Region
 else
+echo "change set is there executing it"
 aws cloudformation execute-change-set --change-set-name my-change-set --stack-name $stackname --region $Region
 aws cloudformation wait stack-update-complete --stack-name $stackname --region $Region
 fi
