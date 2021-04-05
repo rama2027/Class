@@ -49,7 +49,7 @@
               }
           ],
           "VpcId" : { "Ref": "1vpc" },
-          "Tags" :  [ { "Key": "1", "Value":  "1" } ]
+          "Tags" :  [ { "Key": "123", "Value":  "123" } ]
         }
       },
       "s3Bucket": {
