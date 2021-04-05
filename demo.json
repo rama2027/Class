@@ -70,8 +70,8 @@
               "SecurityGroupIds" : [{ "Ref": "secGroupName" }],
               "Tags": [
                   {
-                      "Key": "-",
-                      "Value": "-"
+                      "Key": "123",
+                      "Value": "123"
                   }
               ],
               "UserData": {
