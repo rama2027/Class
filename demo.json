@@ -74,7 +74,7 @@
           "Properties" : {
               "ImageId" : "ami-0ffea00000f287d30",
               "InstanceType" : "t2.micro",
-              "KeyName" : "winodws",
+              "KeyName" : "windows",
               "SecurityGroups" : [ { "Ref": "secGroupName" } ],
               "UserData" : {
                   "Fn::Base64":
