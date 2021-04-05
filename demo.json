@@ -52,6 +52,14 @@
           "Tags" :  [ { "Key": "1", "Value":  "1" } ]
         }
       },
+      "s3Bucket": {
+        "Type": "AWS::S3::Bucket",
+        "Properties": {
+          "AccessControl": "BucketOwnerFullControl",
+          "BucketName": "validationforrama",
+          "Tags": [{ "Key": "s3", "Value":  "s3" }]
+        }
+      },
       "instance": {
           "Type": "AWS::EC2::Instance",
           "Properties": {
