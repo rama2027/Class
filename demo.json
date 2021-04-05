@@ -57,7 +57,7 @@
         "Properties": {
           "AccessControl": "BucketOwnerFullControl",
           "BucketName": "validationforrama",
-          "Tags": [{ "Key": "s3", "Value":  "s3" }]
+          "Tags": [{ "Key": "s31", "Value":  "s31" }]
         }
       },
       "instance": {
