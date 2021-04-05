@@ -36,7 +36,7 @@
           "AvailabilityZone": "eu-west-1b",
           "VpcId": { "Ref": "1vpc" },
           "CidrBlock": "192.168.32.0/19",
-          "Tags": ["-"]
+          "Tags": [{ "Key": "2", "Value":  "3" }]
         }
       },
       "secGroupName" : {
