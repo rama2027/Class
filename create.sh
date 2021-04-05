@@ -33,7 +33,7 @@ aws cloudformation delete-stack --stack-name $stackname --region $Region
 aws cloudformation wait stack-delete-complete --stack-name $stackname --region $Region
 else
 aws cloudformation execute-change-set --change-set-name my-change-set --stack-name $stackname --region $Region
-aws cloudformation wait stack-update-complete --stack-name $stackname
+aws cloudformation wait stack-update-complete --stack-name $stackname --region $Region
 fi
 fi
 #aws cloudformation wait stack-create-complete --stack-name $stackname --region $Region
