@@ -23,8 +23,8 @@ then
 fi
 else
 echo "checking change set"
-aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/cft.json --change-set-type update --region $Region
-changeid=$(aws cloudformation list-change-sets --stack-name $stackname --output text)
+aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/cft.json --change-set-type UPDATE --region $Region
+changeid=$(aws cloudformation list-change-sets --stack-name $stackname --region $Region --output text)
 echo $changeid
 aws cloudformation execute-change-set --change-set-name my-change-set --stack-name my-stack
 fi
