@@ -25,7 +25,11 @@ else
 echo "checking change set"
 aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/cft.json --change-set-type UPDATE --region $Region
 changeid=$(aws cloudformation list-change-sets --stack-name $stackname --region $Region --output text)
-echo $changeid
-aws cloudformation execute-change-set --change-set-name my-change-set --stack-name my-stack
+if [[ $changeid == *"didn't contain changes"* ]]
+echo "no change set is there hence deleting the key"
+aws cloudformation delete-stack --stack-name $stackname --region $Region
+else
+aws cloudformation execute-change-set --change-set-name my-change-set --stack-name $stackname --region $Region
+fi
 fi
 #aws cloudformation wait stack-create-complete --stack-name $stackname --region $Region
