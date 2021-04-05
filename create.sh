@@ -29,6 +29,7 @@ if [[ $changeid == *"didn't contain changes"* ]]
 then
 echo "no change set is there hence deleting the key"
 aws cloudformation delete-stack --stack-name $stackname --region $Region
+aws cloudformation stack-delete-complete --stack-name $stackname --region $Region
 else
 aws cloudformation execute-change-set --change-set-name my-change-set --stack-name $stackname --region $Region
 fi
