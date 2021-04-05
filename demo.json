@@ -21,13 +21,22 @@
           "Tags": [{ "Key": "1", "Value":  "1" }]
         }
       },
-      "subnetName": {
+      "subnetName1": {
         "Type": "AWS::EC2::Subnet",
         "Properties": {
           "AvailabilityZone": "eu-west-1a",
           "VpcId": { "Ref": "1vpc" },
           "CidrBlock": "192.168.0.0/19",
           "Tags": [{ "Key": "2", "Value":  "2" }]
+        }
+      },
+      "subnetName": {
+        "Type": "AWS::EC2::Subnet",
+        "Properties": {
+          "AvailabilityZone": "eu-west-1b",
+          "VpcId": { "Ref": "1vpc" },
+          "CidrBlock": "192.168.32.0/19",
+          "Tags": ["-"]
         }
       },
       "secGroupName" : {
@@ -49,7 +58,7 @@
               }
           ],
           "VpcId" : { "Ref": "1vpc" },
-          "Tags" :  [ { "Key": "123", "Value":  "123" } ]
+          "Tags" :  [ { "Key": "1", "Value":  "1" } ]
         }
       },
       "s3Bucket": {
@@ -57,37 +66,44 @@
         "Properties": {
           "AccessControl": "BucketOwnerFullControl",
           "BucketName": "validationforrama",
-          "Tags": [{ "Key": "s31", "Value":  "s31" }]
+          "Tags": [{ "Key": "s3", "Value":  "s3" }]
         }
       },
-      "instance": {
-          "Type": "AWS::EC2::Instance",
-          "Properties": {
-              "KeyName": "windows",
-              "ImageId": "ami-05f34bb57ea1a77ad",
-              "InstanceType": "t2.micro",
-              "SubnetId" : { "Ref": "subnetName" },
-              "SecurityGroupIds" : [{ "Ref": "secGroupName" }],
-              "Tags": [
-                  {
-                      "Key": "123",
-                      "Value": "1234"
-                  }
-              ],
-              "UserData": {
-                  "Fn::Base64": {
-                      "Fn::Join": [
-                          "",
-                          [
-                              "#!/bin/bash -ex",
-                              "-"
-                          ]
-                      ]
-                  }
-              }
-      }
-              }
+      "launchConfigName": {
+          "Type" : "AWS::AutoScaling::LaunchConfiguration",
+          "Properties" : {
+              "ImageId" : "ami-0ffea00000f287d30",
+              "InstanceType" : "t2.micro",
+              "KeyName" : "winodws",
+              "SecurityGroups" : [ { "Ref": "secGroupName" } ],
+              "UserData" : {
+                  "Fn::Base64":
+                      {   "Fn::Join": [
+                              "",
+                              [
+                                  "#!/bin/bash -ex",
+                                  "-"
+                              ]
 
+                          ]
+                      }
+              }
+          }
+      },
+      "auto" : {
+          "Type" : "AWS::AutoScaling::AutoScalingGroup",
+          "Properties" : {
+              "AvailabilityZones" : ["eu-west-1a","eu-west-1b"],
+              "LaunchConfigurationName" : { "Ref": "launchConfigName" },
+              "MaxSize" : "2",
+              "MinSize" : "1",
+              "VPCZoneIdentifier" : [{ "Ref": "subnetName" },{ "Ref": "subnetName1" }],
+              "Tags" : [ {"Key" : "Name",
+                          "Value" : "test",
+                          "PropagateAtLaunch" : "True"}
+                      ]
+          }
+      }
     },
     "Outputs": {
 
