@@ -103,9 +103,9 @@
                               [
                                   "#!/bin/bash -ex \n",
                                   "yum install java-1.8.0 -y \n",
-                                  "sleep 30 \n"
+                                  "sleep 30 \n",
                                   "wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo \n",
-                                  "sleep 5 \n"
+                                  "sleep 5 \n",
                                   "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key \n",
                                   "yum install jenkins -y \n",
                                   "service jenkins start \n"
