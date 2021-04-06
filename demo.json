@@ -140,7 +140,7 @@
             "Protocol": "TCP"
               } ],
             "HealthCheck": {
-              "Target": "TCP:8080/",
+              "Target": "TCP:8080",
               "HealthyThreshold": "2",
               "UnhealthyThreshold": "3",
               "Interval": "10",
