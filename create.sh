@@ -14,13 +14,14 @@ then
     # Wait for create-stack to finish
     echo  "Waiting for create-stack command to complete"
     CREATE_STACK_STATUS=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackStatus' --output text)
-    aws cloudformation describe-stack-events --stack-name $stackname --region $Region
-    while [[ $CREATE_STACK_STATUS == "REVIEW_IN_PROGRESS" ]] || [[ $CREATE_STACK_STATUS == "CREATE_IN_PROGRESS" ]]
-    do
+    aws cloudformation describe-stack-events --stack-name $stackname --max-items --region $Region
+    aws cloudformation wait stack-create-complete --stack-name $stackname --region $Region
+    #while [[ $CREATE_STACK_STATUS == "REVIEW_IN_PROGRESS" ]] || [[ $CREATE_STACK_STATUS == "CREATE_IN_PROGRESS" ]]
+    #do
         # Wait 30 seconds and then check stack status again
-        sleep 30
-        CREATE_STACK_STATUS=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackStatus' --output text)
-    done
+        #sleep 30
+        #CREATE_STACK_STATUS=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackStatus' --output text)
+    #done
 fi
 else
 echo " stack named $stackname exists hence checking the change set"
@@ -39,4 +40,4 @@ aws cloudformation execute-change-set --change-set-name my-change-set --stack-na
 aws cloudformation wait stack-update-complete --stack-name $stackname --region $Region
 fi
 fi
-#aws cloudformation wait stack-create-complete --stack-name $stackname --region $Region
+#
