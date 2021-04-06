@@ -36,7 +36,7 @@
           "AvailabilityZone": "eu-west-1b",
           "VpcId": { "Ref": "1vpc" },
           "CidrBlock": "192.168.32.0/19",
-          "Tags": [{ "Key": "2", "Value":  "3" }]
+          "Tags": [{ "Key": "1", "Value":  "1" }]
         }
       },
       "secGroupName" : {
@@ -46,16 +46,23 @@
           "SecurityGroupIngress": [
               {
                   "IpProtocol": "tcp",
-                  "FromPort": 80,
-                  "ToPort": 80,
+                  "FromPort": 22,
+                  "ToPort": 22,
                   "CidrIp": "0.0.0.0/0"
               },
               {
                   "IpProtocol": "tcp",
-                  "FromPort": 3389,
-                  "ToPort": 3389,
+                  "FromPort": 8080,
+                  "ToPort": 8080,
+                  "CidrIp": "0.0.0.0/0"
+              },
+              {
+                  "IpProtocol": "tcp",
+                  "FromPort": 21,
+                  "ToPort": 21,
                   "CidrIp": "0.0.0.0/0"
               }
+              
           ],
           "VpcId" : { "Ref": "1vpc" },
           "Tags" :  [ { "Key": "1", "Value":  "1" } ]
@@ -74,15 +81,19 @@
           "Properties" : {
               "ImageId" : "ami-0ffea00000f287d30",
               "InstanceType" : "t2.micro",
-              "KeyName" : "windows",
+              "KeyName" : "linux",
               "SecurityGroups" : [ { "Ref": "secGroupName" } ],
               "UserData" : {
                   "Fn::Base64":
                       {   "Fn::Join": [
                               "",
                               [
-                                  "#!/bin/bash -ex",
-                                  "-"
+                                  "#!/bin/bash -ex \n",
+                                  "yum install java-1.8.0 \n",
+                                  "wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo",
+                                  "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key",
+                                  "yum install jenkins -y",
+                                  "service jenkins start"
                               ]
 
                           ]
@@ -95,6 +106,8 @@
           "Properties" : {
               "AvailabilityZones" : ["eu-west-1a","eu-west-1b"],
               "LaunchConfigurationName" : { "Ref": "launchConfigName" },
+              "HealthCheckType" : ["EC2","ELB"],
+              "LoadBalancerNames" : { "Ref": "elb" },
               "MaxSize" : "2",
               "MinSize" : "1",
               "VPCZoneIdentifier" : [{ "Ref": "subnetName" },{ "Ref": "subnetName1" }],
@@ -103,6 +116,25 @@
                           "PropagateAtLaunch" : "True"}
                       ]
           }
+      },
+      "elb": {
+         "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+         "Properties": {
+            "Listeners" : [ {
+            "InstancePort": "8080",
+            "InstanceProtocol": "TCP",
+            "LoadBalancerPort": "80",
+            "Protocol": "TCP"
+              } ],
+            "SecurityGroups" : [ { "Ref": "secGroupName" } ],
+            "Subnets" : [{ "Ref": "subnetName1" },{ "Ref": "subnetName" } ],
+            "Tags": [
+                  {
+                    "Key": "lb",
+                    "Value": "lb"
+                  }
+            ]
+         }
       }
     },
     "Outputs": {
