@@ -75,7 +75,7 @@
                   "ToPort": 21,
                   "CidrIp": "0.0.0.0/0"
               }
-              
+
           ],
           "VpcId" : { "Ref": "1vpc" },
           "Tags" :  [ { "Key": "1", "Value":  "1" } ]
@@ -146,6 +146,7 @@
               "Interval": "10",
               "Timeout": "5"
             },
+            "LoadBalancerName" : "elb1",
             "SecurityGroups" : [ { "Ref": "secGroupName" } ],
             "Subnets" : [{ "Ref": "subnetName1" },{ "Ref": "subnetName" } ],
             "Tags": [
