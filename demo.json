@@ -109,7 +109,7 @@
               "HealthCheckType" : ["EC2","ELB"],
               "LoadBalancerNames" : { "Ref": "elb" },
               "MaxSize" : "2",
-              "MinSize" : "1",
+              "MinSize" : "2",
               "VPCZoneIdentifier" : [{ "Ref": "subnetName" },{ "Ref": "subnetName1" }],
               "Tags" : [ {"Key" : "Name",
                           "Value" : "test",
