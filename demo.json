@@ -120,7 +120,7 @@
               "AvailabilityZones" : ["eu-west-1a","eu-west-1b"],
               "LaunchConfigurationName" : { "Ref": "launchConfigName" },
               "HealthCheckType" : ["EC2","ELB"],
-              "LoadBalancerNames" : { "Ref": "elb" },
+              "LoadBalancerNames" : [{ "Ref": "elb" }],
               "MaxSize" : "2",
               "MinSize" : "1",
               "VPCZoneIdentifier" : [{ "Ref": "subnetName" },{ "Ref": "subnetName1" }],
