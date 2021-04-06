@@ -39,6 +39,19 @@
           "Tags": [{ "Key": "1", "Value":  "1" }]
         }
       },
+      "igwName": {
+        "Type": "AWS::EC2::InternetGateway",
+        "Properties": {
+          "Tags": ["{ "Key": "ig", "Value":  "ig" }"]
+        }
+      },
+      "AttachGateway": {
+        "Type": "AWS::EC2::VPCGatewayAttachment",
+        "Properties": {
+          "VpcId": { "Ref": "1vpc" },
+          "InternetGatewayId": { "Ref": "igwName" }
+        }
+      },
       "secGroupName" : {
         "Type" : "AWS::EC2::SecurityGroup",
         "Properties" : {
@@ -109,7 +122,7 @@
               "HealthCheckType" : ["EC2","ELB"],
               "LoadBalancerNames" : { "Ref": "elb" },
               "MaxSize" : "2",
-              "MinSize" : "2",
+              "MinSize" : "1",
               "VPCZoneIdentifier" : [{ "Ref": "subnetName" },{ "Ref": "subnetName1" }],
               "Tags" : [ {"Key" : "Name",
                           "Value" : "test",
@@ -126,6 +139,13 @@
             "LoadBalancerPort": "80",
             "Protocol": "TCP"
               } ],
+            "HealthCheck": {
+              "Target": "TCP:8080/",
+              "HealthyThreshold": "2",
+              "UnhealthyThreshold": "3",
+              "Interval": "10",
+              "Timeout": "5"
+            },
             "SecurityGroups" : [ { "Ref": "secGroupName" } ],
             "Subnets" : [{ "Ref": "subnetName1" },{ "Ref": "subnetName" } ],
             "Tags": [
