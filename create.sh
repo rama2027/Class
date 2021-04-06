@@ -14,7 +14,7 @@ then
     # Wait for create-stack to finish
     echo  "Waiting for create-stack command to complete"
     CREATE_STACK_STATUS=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackStatus' --output text)
-    aws cloudformation describe-stack-events --stack-name $stackname --max-items --region $Region
+    aws cloudformation describe-stack-events --stack-name $stackname --max-items 20 --region $Region
     aws cloudformation wait stack-create-complete --stack-name $stackname --region $Region
     #while [[ $CREATE_STACK_STATUS == "REVIEW_IN_PROGRESS" ]] || [[ $CREATE_STACK_STATUS == "CREATE_IN_PROGRESS" ]]
     #do
