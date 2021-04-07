@@ -96,12 +96,7 @@
               "InstanceType" : "t2.micro",
               "KeyName" : "linux",
               "SecurityGroups" : [ { "Ref": "secGroupName" } ],
-              "NetworkInterfaces": [ {
-              "AssociatePublicIpAddress": "true",
-              "DeviceIndex": "0",
-              "GroupSet": [{ "Ref" : "secGroupName" }],
-              "SubnetId": [{ "Ref" : "subnetName" },{ "Ref": "subnetName1" }]
-              } ],
+              "AssociatePublicIpAddress" : "True",
               "UserData" : {
                   "Fn::Base64":
                       {   "Fn::Join": [
