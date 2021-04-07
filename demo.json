@@ -172,6 +172,13 @@
           "DestinationCidrBlock": "0.0.0.0/0",
           "GatewayId": { "Ref": "igwName" }
         }
+      },
+      "routeTableAssocName": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "SubnetId": [{ "Ref": "subnetName1" },{ "Ref": "subnetName" }],
+          "RouteTableId": { "Ref": "routeTableName" }
+        }
       }
     },
     "Outputs": {
