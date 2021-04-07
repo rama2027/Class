@@ -176,10 +176,17 @@
       "routeTableAssocName": {
         "Type": "AWS::EC2::SubnetRouteTableAssociation",
         "Properties": {
-          "SubnetId": [{ "Ref": "subnetName1" },{ "Ref": "subnetName" }],
+          "SubnetId": { "Ref": "subnetName1" }
           "RouteTableId": { "Ref": "routeTableName" }
         }
-      }
+      },
+      "routeTableAssocName1": {
+        "Type": "AWS::EC2::SubnetRouteTableAssociation",
+        "Properties": {
+          "SubnetId": { "Ref": "subnetName" }
+          "RouteTableId": { "Ref": "routeTableName" }
+        }
+      },
     },
     "Outputs": {
 
