@@ -8,7 +8,7 @@ echo $checkstack
 if [[ $checkstack != $stackname ]]
 then
 echo "stack $stackname not exists hence creating it"
-aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/iam.json --stack-name $stackname -capabilities CAPABILITY_NAMED_IAM --on-failure DELETE --region $Region
+aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/iam.json --stack-name $stackname --capabilities CAPABILITY_NAMED_IAM --on-failure DELETE --region $Region
 if [[ $? -eq 0 ]]
 then
     # Wait for create-stack to finish
