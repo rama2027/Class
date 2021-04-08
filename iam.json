@@ -1,6 +1,18 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "IAM Role CFT",
+    "Description": "",
+    "Metadata": {
+
+    },
+    "Parameters": {
+
+    },
+    "Mappings": {
+
+    },
+    "Conditions": {
+
+    },
     "Resources": {
       "Role": {
          "Type": "AWS::IAM::Role",
@@ -31,7 +43,9 @@
                             "Statement": [
                                 {
                                     "Effect": "Allow",
-                                    "Action": "*",
+                                    "Action": [
+                                      "cloudformation:*"
+                                    ],
                                     "Resource": "*"
                                 }
                             ]
