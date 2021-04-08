@@ -1,18 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "",
-    "Metadata": {
-
-    },
-    "Parameters": {
-
-    },
-    "Mappings": {
-
-    },
-    "Conditions": {
-
-    },
+    "Description": "IAM Role CFT",
     "Resources": {
       "Role": {
          "Type": "AWS::IAM::Role",
@@ -55,6 +43,9 @@
 
     },
     "Outputs": {
-
+      "test": {
+        "Description": "test",
+        "Value": { "Ref": "Roles" }
+      }
     }
 }
