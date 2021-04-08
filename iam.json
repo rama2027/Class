@@ -46,7 +46,7 @@
                                     "Action": [
                                       "cloudformation:*"
                                     ],
-                                    "Resource": "*"
+                                    "Resource": "arn:aws:cloudformation:eu-west-1:198250326275:stack/my-new-stack/"
                                 }
                             ]
                         }
