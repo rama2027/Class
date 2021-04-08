@@ -45,7 +45,7 @@
     "Outputs": {
       "test": {
         "Description": "test",
-        "Value": { "Ref": "Roles" }
+        "Value": { "Ref": "Role" }
       }
     }
 }
