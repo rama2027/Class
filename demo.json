@@ -110,7 +110,7 @@
                                   "service jenkins start \n",
                                   "/opt/aws/bin/cfn-signal -e $? ",
                                   "  --stack ", { "Ref": "AWS::StackName" },
-                                  "  --resource ", { "Ref": "auto" }" ,
+                                  "  --resource ", { "Ref": "auto" },
                                   "  --region ", { "Ref" : "AWS::Region" }, "n"
                               ]
 
