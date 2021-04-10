@@ -3,7 +3,7 @@
 source $WORKSPACE/var.sh
 
 echo $stackname
-if [[ $stackname == *"iam"* ] || [ $stackname == *"IAM"* ]] 
+if [[ $stackname == *"iam"* ]] || [[ $stackname == *"IAM"* ]] 
 echo "creating IAM"
 checkstack=$(aws --region $Region cloudformation describe-stacks --stack-name $stackname --query 'Stacks[0].StackName' --output text)
 echo $checkstack
