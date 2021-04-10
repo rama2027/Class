@@ -68,7 +68,7 @@ fi
 else
 echo " stack named $stackname exists hence checking the change set"
 echo "checking change set"
-aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/$stackname --change-set-type UPDATE --region $Region
+aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/$stackname.json --change-set-type UPDATE --region $Region
 aws cloudformation wait change-set-create-complete --stack-name $stackname --change-set-name my-change-set --region $Region
 changeid=$(aws cloudformation list-change-sets --stack-name $stackname --region $Region --output text)
 if [[ $changeid == *"didn't contain changes"* ]]
