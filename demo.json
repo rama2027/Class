@@ -110,8 +110,8 @@
                                   "service jenkins start \n",
                                   "/opt/aws/bin/cfn-signal -e $? ",
                                   "  --stack ", { "Ref": "AWS::StackName" },
-                                  "  --resource AutoScalingGroup " ,
-                                  "  --region ", { "Ref" : "AWS::Region" }, "\n"
+                                  "  --resource ", { "Ref": "auto" }" ,
+                                  "  --region ", { "Ref" : "AWS::Region" }, "n"
                               ]
 
                           ]
@@ -137,10 +137,11 @@
           },
           "CreationPolicy": {
             "ResourceSignal": {
-              "Count": "3",
+              "Count": "2",
               "Timeout": "PT5M"
             }
-          },
+          }
+      },
       "elb": {
          "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
          "Properties": {
