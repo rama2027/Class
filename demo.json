@@ -108,7 +108,7 @@
                                   "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key \n",
                                   "yum install jenkins -y \n",
                                   "service jenkins start \n",
-                                  "cfn-signal -e 0 ",
+                                  "/opt/aws/bin/cfn-signal -e 0 ",
                                   " --stack ", { "Ref": "AWS::StackName" },
                                   " --resource auto " ,
                                   " --region ", { "Ref" : "AWS::Region" }                              ]
