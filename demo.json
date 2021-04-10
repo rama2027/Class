@@ -125,7 +125,7 @@
               "AvailabilityZones" : ["eu-west-1a","eu-west-1b"],
               "LaunchConfigurationName" : { "Ref": "launchConfigName" },
               "HealthCheckType" : "ELB",
-              "HealthCheckGracePeriod" : "200",
+              "HealthCheckGracePeriod" : "600",
               "LoadBalancerNames" : [{ "Ref": "elb" }],
               "MaxSize" : "2",
               "MinSize" : "2",
