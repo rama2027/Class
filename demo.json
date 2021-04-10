@@ -103,11 +103,15 @@
                               "",
                               [
                                   "#!/bin/bash -ex \n",
-                                  "yum install java-1.8.0 -y \n",
+                                  "yum install java-1.8.0 \n",
                                   "wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo \n",
                                   "rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key \n",
                                   "yum install jenkins -y \n",
-                                  "service jenkins start \n"
+                                  "service jenkins start \n",
+                                  "/opt/aws/bin/cfn-signal -e $? ",
+                                  "  --stack ", { "Ref": "AWS::StackName" },
+                                  "  --resource AutoScalingGroup " ,
+                                  "  --region ", { "Ref" : "AWS::Region" }, "\n"
                               ]
 
                           ]
@@ -121,7 +125,7 @@
               "AvailabilityZones" : ["eu-west-1a","eu-west-1b"],
               "LaunchConfigurationName" : { "Ref": "launchConfigName" },
               "HealthCheckType" : "ELB",
-              "HealthCheckGracePeriod" : "1200",
+              "HealthCheckGracePeriod" : "200",
               "LoadBalancerNames" : [{ "Ref": "elb" }],
               "MaxSize" : "2",
               "MinSize" : "2",
@@ -130,8 +134,13 @@
                           "Value" : "test",
                           "PropagateAtLaunch" : "True"}
                       ]
-          }
-      },
+          },
+          "CreationPolicy": {
+            "ResourceSignal": {
+              "Count": "3",
+              "Timeout": "PT5M"
+            }
+          },
       "elb": {
          "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
          "Properties": {
