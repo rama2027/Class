@@ -11,7 +11,7 @@ echo $checkstack
 if [[ $checkstack != $stackname ]]
 then
 echo "stack $stackname not exists hence creating it"
-aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/stack --stack-name $stackname --on-failure DELETE --region $Region
+aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/stack --stack-name $stackname --capabilities CAPABILITY_NAMED_IAM --on-failure DELETE --region $Region
 if [[ $? -eq 0 ]]
 then
     # Wait for create-stack to finish
@@ -29,7 +29,7 @@ fi
 else
 echo " stack named $stackname exists hence checking the change set"
 echo "checking change set"
-aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/cft.json --change-set-type UPDATE --region $Region
+aws cloudformation create-change-set --stack-name $stackname --change-set-name my-change-set --template-url http://s3.amazonaws.com/cft-rama/$stackname --change-set-type UPDATE --region $Region
 aws cloudformation wait change-set-create-complete --stack-name $stackname --change-set-name my-change-set --region $Region
 changeid=$(aws cloudformation list-change-sets --stack-name $stackname --region $Region --output text)
 if [[ $changeid == *"didn't contain changes"* ]]
@@ -50,7 +50,7 @@ echo $checkstack
 if [[ $checkstack != $stackname ]]
 then
 echo "stack $stackname not exists hence creating it"
-aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/stack --stack-name $stackname --capabilities CAPABILITY_NAMED_IAM --on-failure DELETE --region $Region
+aws cloudformation create-stack --stack-name $stackname --template-url http://s3.amazonaws.com/cft-rama/stack --stack-name $stackname --on-failure DELETE --region $Region
 if [[ $? -eq 0 ]]
 then
     # Wait for create-stack to finish
